@@ -32,6 +32,8 @@
    - Three types of upgradable towers
    - Endscreen with highscore saving system
    - 4 soundtracks
+   - Random road generator
+   - Random wave complexity
      
   -----------------------------------------------------------
 
