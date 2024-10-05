@@ -10,6 +10,7 @@
  In this project you will find:
 
  - TileSets: grass, road
+   
  - Spritesheets: Towers (archer tower, oil tower, mortar tower), enemies (skeleton, ghost, golem) with animations
  - GDScripts
  - Sounds
@@ -31,5 +32,8 @@
    - Three types of upgradable towers
    - Endscreen with highscore saving system
    - 4 soundtracks
+     
+  -----------------------------------------------------------
 
+  You can find a playable demo here: https://fortieighty.itch.io/towerdefensio
    
