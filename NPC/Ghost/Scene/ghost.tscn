@@ -1,0 +1,102 @@
+[gd_scene load_steps=10 format=3 uid="uid://dao7mqaklvhv5"]
+
+[ext_resource type="Script" path="res://NPC/Ghost/Script/ghost.gd" id="1_4ee14"]
+[ext_resource type="Texture2D" uid="uid://cg2iqfm1m8yh0" path="res://NPC/Ghost/AnimationSheet/ghost.png" id="1_7vji8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4fmf"]
+size = Vector2(67, 50)
+
+[sub_resource type="Animation" id="Animation_ivan6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pk0hn"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vve66"]
+_data = {
+"RESET": SubResource("Animation_ivan6"),
+"walk": SubResource("Animation_pk0hn")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6183"]
+size = Vector2(67, 50)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6gtf"]
+bg_color = Color(0.662745, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_huvoc"]
+bg_color = Color(0, 0.94902, 0, 1)
+
+[node name="Ghost" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_4ee14")
+
+[node name="mainSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_7vji8")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -1)
+shape = SubResource("RectangleShape2D_n4fmf")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vve66")
+}
+
+[node name="CastleCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CastleCheck"]
+position = Vector2(-1.5, -1)
+shape = SubResource("RectangleShape2D_m6183")
+debug_color = Color(0.968627, 0, 0.470588, 0.419608)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -22.0
+offset_top = -39.0
+offset_right = 24.0
+offset_bottom = -26.0
+theme_override_styles/background = SubResource("StyleBoxFlat_s6gtf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_huvoc")
+value = 100.0
+show_percentage = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="dietimer" type="Timer" parent="."]
+
+[node name="oiledtimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="CastleCheck" to="." method="_on_castle_check_area_entered"]
+[connection signal="timeout" from="dietimer" to="." method="_on_dietimer_timeout"]
+[connection signal="timeout" from="oiledtimer" to="." method="_on_oiledtimer_timeout"]

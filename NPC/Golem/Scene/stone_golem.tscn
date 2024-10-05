@@ -1,0 +1,139 @@
+[gd_scene load_steps=12 format=3 uid="uid://bfajbp8bhbs17"]
+
+[ext_resource type="Script" path="res://NPC/Golem/Script/StoneGolem.gd" id="1_fxf6m"]
+[ext_resource type="Texture2D" uid="uid://ctsdmcmo2hme3" path="res://NPC/Golem/AnimationSheet/golemstone.png" id="2_cm6du"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptotq"]
+size = Vector2(67, 54)
+
+[sub_resource type="Animation" id="Animation_ynf5i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7bsxs"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_8fp4j"]
+resource_name = "walkRight"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_7mpmo"]
+resource_name = "walkUp"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v27xm"]
+_data = {
+"RESET": SubResource("Animation_ynf5i"),
+"walk": SubResource("Animation_7bsxs"),
+"walkRight": SubResource("Animation_8fp4j"),
+"walkUp": SubResource("Animation_7mpmo")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66qxr"]
+size = Vector2(67, 54)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u6vq"]
+bg_color = Color(0.662745, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d8da"]
+bg_color = Color(0, 0.94902, 0, 1)
+
+[node name="StoneGolem" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_fxf6m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_cm6du")
+hframes = 4
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_ptotq")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v27xm")
+}
+
+[node name="CastleCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CastleCheck"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_66qxr")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -23.0
+offset_top = -47.0
+offset_right = 23.0
+offset_bottom = -29.0
+theme_override_styles/background = SubResource("StyleBoxFlat_6u6vq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4d8da")
+show_percentage = false
+
+[node name="dietimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="oiledtimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="CastleCheck" to="." method="_on_castle_check_area_entered"]
+[connection signal="timeout" from="dietimer" to="." method="_on_dietimer_timeout"]
+[connection signal="timeout" from="oiledtimer" to="." method="_on_oiledtimer_timeout"]

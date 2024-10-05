@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctwg3608hhpsj"]
+
+[ext_resource type="Script" path="res://end_game_screen.gd" id="1_2haeo"]
+[ext_resource type="Texture2D" uid="uid://bsufobuyjxsyx" path="res://Interface/btntest-removebg-preview.png" id="2_frb84"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_apqw7"]
+texture = ExtResource("2_frb84")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wiwo7"]
+texture = ExtResource("2_frb84")
+modulate_color = Color(0.180392, 0.501961, 0.4, 1)
+
+[node name="End Game Screen" type="Node2D"]
+script = ExtResource("1_2haeo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GAME OVER" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -607.5
+offset_top = -20.0
+offset_right = 607.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[center]GAME OVER[/center]"
+fit_content = true
+
+[node name="CURRENT SCORE" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -607.5
+offset_top = 20.0
+offset_right = 607.5
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]GAME OVER[/center]"
+fit_content = true
+
+[node name="HIGH SCORE" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -607.5
+offset_top = 45.0
+offset_right = 607.5
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]GAME OVER[/center]"
+fit_content = true
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.5
+offset_top = 70.0
+offset_right = 108.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_apqw7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wiwo7")
+text = "START AGAIN"
+
+[connection signal="pressed" from="CanvasLayer/Panel/Button" to="." method="_on_button_pressed"]

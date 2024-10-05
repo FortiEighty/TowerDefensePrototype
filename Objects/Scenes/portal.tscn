@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjqqhtjen748i"]
+
+[ext_resource type="Script" path="res://Objects/Scripts/portal.gd" id="1_5wnhr"]
+[ext_resource type="Texture2D" uid="uid://brpt7uyqolec3" path="res://Objects/Sprites/portal.png" id="1_ubu7y"]
+[ext_resource type="PackedScene" uid="uid://biovdgtnildeh" path="res://NPC/Skeleton/Scene/Skelet.tscn" id="2_5lypm"]
+
+[node name="portal" type="Node2D"]
+script = ExtResource("1_5wnhr")
+SkeletonScene = ExtResource("2_5lypm")
+
+[node name="mainSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ubu7y")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(63, 0)
+
+[node name="spawnTimer" type="Timer" parent="."]
+
+[node name="relaxTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="relaxTimer" to="." method="_on_relax_timer_timeout"]

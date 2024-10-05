@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://ckqtuqkjtjumr"]
+
+[ext_resource type="Texture2D" uid="uid://dtg4o60t0ux0e" path="res://buttonicon.png" id="1_3oqpm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aew0r"]
+texture = ExtResource("1_3oqpm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7lugr"]
+texture = ExtResource("1_3oqpm")
+modulate_color = Color(0.305882, 0.556863, 0.498039, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kxesw"]
+texture = ExtResource("1_3oqpm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_00m0t"]
+texture = ExtResource("1_3oqpm")
+
+[resource]
+Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+Button/font_sizes/font_size = 13
+Button/fonts/font = null
+Button/styles/focus = SubResource("StyleBoxTexture_aew0r")
+Button/styles/hover = SubResource("StyleBoxTexture_7lugr")
+Button/styles/normal = SubResource("StyleBoxTexture_kxesw")
+Button/styles/pressed = SubResource("StyleBoxTexture_00m0t")

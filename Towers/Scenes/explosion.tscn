@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://briwyka5aj3tn"]
+
+[ext_resource type="Texture2D" uid="uid://d3aiv5ft5suir" path="res://Towers/Sprites/explosion.png" id="1_4vc02"]
+[ext_resource type="Script" path="res://Towers/Scenes/explosion.gd" id="1_6lvjo"]
+
+[sub_resource type="Animation" id="Animation_56g6w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gcd4t"]
+resource_name = "explosion"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dagpw"]
+_data = {
+"RESET": SubResource("Animation_56g6w"),
+"explosion": SubResource("Animation_gcd4t")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gixlp"]
+radius = 56.0089
+
+[node name="Explosion" type="Node2D"]
+visible = false
+script = ExtResource("1_6lvjo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_4vc02")
+hframes = 4
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dagpw")
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_gixlp")
+
+[node name="Timer2" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

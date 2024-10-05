@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemyType" load_steps=3 format=3 uid="uid://cb3p7q2telcoi"]
+
+[ext_resource type="PackedScene" uid="uid://dao7mqaklvhv5" path="res://NPC/Ghost/Scene/ghost.tscn" id="1_lqfrw"]
+[ext_resource type="Script" path="res://NPC/Scripts/EnemyType.gd" id="1_yfjip"]
+
+[resource]
+script = ExtResource("1_yfjip")
+enemyName = "Ghost"
+enemyScene = ExtResource("1_lqfrw")
+enemyComplexityPrice = 20
+minimumWaveComplexity = 150

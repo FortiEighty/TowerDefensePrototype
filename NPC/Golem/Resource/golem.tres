@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemyType" load_steps=3 format=3 uid="uid://ca1g3pvbrq711"]
+
+[ext_resource type="Script" path="res://NPC/Scripts/EnemyType.gd" id="1_dkbj0"]
+[ext_resource type="PackedScene" uid="uid://bfajbp8bhbs17" path="res://NPC/Golem/Scene/stone_golem.tscn" id="1_p0e4l"]
+
+[resource]
+script = ExtResource("1_dkbj0")
+enemyName = "Golem"
+enemyScene = ExtResource("1_p0e4l")
+enemyComplexityPrice = 50
+minimumWaveComplexity = 200

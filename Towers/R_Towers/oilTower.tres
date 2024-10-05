@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="towerType" load_steps=4 format=3 uid="uid://bgwvxigmot3he"]
+
+[ext_resource type="Texture2D" uid="uid://da8ogmtnicnr" path="res://Towers/Sprites/oilTower.png" id="1_4qmup"]
+[ext_resource type="Script" path="res://Towers/Scripts/towerType.gd" id="1_olxse"]
+[ext_resource type="PackedScene" uid="uid://cf4hjeoc1j68w" path="res://Towers/Scenes/oil_tower.tscn" id="2_uoead"]
+
+[resource]
+script = ExtResource("1_olxse")
+towerName = "Oil Tower"
+scene = ExtResource("2_uoead")
+mainSprite = ExtResource("1_4qmup")
+cost = 150
+x_scale = 0.15
+y_scale = 0.15
+description = "Casts an oil barrel that makes an oil splash that slows down enemies"

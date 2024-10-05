@@ -1,0 +1,168 @@
+[gd_scene load_steps=15 format=3 uid="uid://biovdgtnildeh"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_6sjq6"]
+[ext_resource type="Texture2D" uid="uid://xx3x3x70riv0" path="res://NPC/Skeleton/AnimationSheet/skeleton.png" id="2_bhtfk"]
+[ext_resource type="AudioStream" uid="uid://domcx07xky25" path="res://Objects/Sounds/bow-release-bow-and-arrow-4-101936.mp3" id="3_q8vvm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uft2j"]
+size = Vector2(30, 44)
+
+[sub_resource type="Animation" id="Animation_aoptu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_2153k"]
+resource_name = "walkDown"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_4okrx"]
+resource_name = "walkLeft"
+length = 0.6
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_sxnre"]
+resource_name = "walkRight"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_alp44"]
+resource_name = "walkUp"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mainSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f3me2"]
+_data = {
+"RESET": SubResource("Animation_aoptu"),
+"walkDown": SubResource("Animation_2153k"),
+"walkLeft": SubResource("Animation_4okrx"),
+"walkRight": SubResource("Animation_sxnre"),
+"walkUp": SubResource("Animation_alp44")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byp0s"]
+size = Vector2(46.6667, 66.6667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oefrf"]
+bg_color = Color(0.662745, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p04vi"]
+bg_color = Color(0, 0.94902, 0, 1)
+
+[sub_resource type="Theme" id="Theme_e3unv"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_oefrf")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_p04vi")
+
+[node name="Skeleton" type="CharacterBody2D" groups=["enemy"]]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_6sjq6")
+
+[node name="mainSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_bhtfk")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -2)
+shape = SubResource("RectangleShape2D_uft2j")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+radius = 20.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f3me2")
+}
+
+[node name="CastleCheck" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CastleCheck"]
+position = Vector2(-1.66667, -1.66667)
+shape = SubResource("RectangleShape2D_byp0s")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -25.0
+offset_top = -58.3333
+offset_right = 21.0
+offset_bottom = -38.3333
+theme = SubResource("Theme_e3unv")
+value = 100.0
+show_percentage = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_q8vvm")
+
+[node name="wait" type="Timer" parent="."]
+
+[node name="oiledtimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="CastleCheck" to="." method="_on_castle_check_area_entered"]
+[connection signal="timeout" from="wait" to="." method="_on_wait_timeout"]
+[connection signal="timeout" from="oiledtimer" to="." method="_on_oiledtimer_timeout"]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemyType" load_steps=3 format=3 uid="uid://dj1j7aq7s0ttg"]
+
+[ext_resource type="Script" path="res://NPC/Scripts/EnemyType.gd" id="1_gafdg"]
+[ext_resource type="PackedScene" uid="uid://biovdgtnildeh" path="res://NPC/Skeleton/Scene/Skelet.tscn" id="1_oah0y"]
+
+[resource]
+script = ExtResource("1_gafdg")
+enemyName = "Skeleton"
+enemyScene = ExtResource("1_oah0y")
+enemyComplexityPrice = 10
+minimumWaveComplexity = 0

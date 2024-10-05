@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="towerType" load_steps=4 format=3 uid="uid://d21ieadsrio4v"]
+
+[ext_resource type="Script" path="res://Towers/Scripts/towerType.gd" id="1_r2iu4"]
+[ext_resource type="Texture2D" uid="uid://d14q71bdll31p" path="res://Towers/Sprites/mortar.png" id="1_vjhut"]
+[ext_resource type="PackedScene" uid="uid://ive4iocsiusj" path="res://Towers/Scenes/mortar_tower.tscn" id="2_07i3n"]
+
+[resource]
+script = ExtResource("1_r2iu4")
+towerName = "Mortar"
+scene = ExtResource("2_07i3n")
+mainSprite = ExtResource("1_vjhut")
+cost = 300
+x_scale = 0.38
+y_scale = 0.38
+description = "Casts an explosive barrel that deals huge damage"

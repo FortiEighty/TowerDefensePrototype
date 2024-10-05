@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="towerType" load_steps=4 format=3 uid="uid://dk6wkvi07ly6c"]
+
+[ext_resource type="Script" path="res://Towers/Scripts/towerType.gd" id="1_etxo3"]
+[ext_resource type="Texture2D" uid="uid://dbqfwg60r0yit" path="res://Towers/Sprites/arrowTower.png" id="1_f0auf"]
+[ext_resource type="PackedScene" uid="uid://dqxnvof4lxygi" path="res://Towers/Scenes/arrow_tower.tscn" id="1_yibao"]
+
+[resource]
+script = ExtResource("1_etxo3")
+towerName = "Arrow Tower"
+scene = ExtResource("1_yibao")
+mainSprite = ExtResource("1_f0auf")
+cost = 100
+x_scale = 0.18
+y_scale = 0.18
+description = "Casts a single arrow dealing small amount of damage"

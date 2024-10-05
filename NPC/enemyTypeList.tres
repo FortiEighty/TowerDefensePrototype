@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="enemyTypeList" load_steps=5 format=3 uid="uid://mu2iqlhfj4xp"]
+
+[ext_resource type="Script" path="res://NPC/Scripts/enemyTypeList.gd" id="1_5f006"]
+[ext_resource type="Resource" uid="uid://dj1j7aq7s0ttg" path="res://NPC/Skeleton/Resource/Skeleton.tres" id="1_n4tie"]
+[ext_resource type="Resource" uid="uid://cb3p7q2telcoi" path="res://NPC/Ghost/Resource/ghost.tres" id="2_mjhke"]
+[ext_resource type="Resource" uid="uid://ca1g3pvbrq711" path="res://NPC/Golem/Resource/golem.tres" id="3_2xqa2"]
+
+[resource]
+script = ExtResource("1_5f006")
+enemies = Array[Resource("res://NPC/Scripts/EnemyType.gd")]([ExtResource("1_n4tie"), ExtResource("2_mjhke"), ExtResource("3_2xqa2")])

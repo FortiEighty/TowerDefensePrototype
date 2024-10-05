@@ -1,0 +1,107 @@
+[gd_scene load_steps=11 format=3 uid="uid://ive4iocsiusj"]
+
+[ext_resource type="Script" path="res://Towers/Scripts/mortar_tower.gd" id="1_j7v2t"]
+[ext_resource type="Texture2D" uid="uid://duwo6822743ti" path="res://Towers/Sprites/mortartower.png" id="1_rkyiv"]
+[ext_resource type="PackedScene" uid="uid://briwyka5aj3tn" path="res://Towers/Scenes/explosion.tscn" id="2_ufm6h"]
+[ext_resource type="Texture2D" uid="uid://c6kgaqsrg540i" path="res://blue-circle.svg" id="2_vfq5r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qlrvm"]
+radius = 243.002
+
+[sub_resource type="Animation" id="Animation_uvyrg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_1djvv"]
+resource_name = "Shot"
+length = 1.2
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61wtq"]
+_data = {
+"RESET": SubResource("Animation_uvyrg"),
+"Shot": SubResource("Animation_1djvv")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xifnk"]
+size = Vector2(60, 108)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjk8x"]
+size = Vector2(62, 106)
+
+[node name="Mortar Tower" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_j7v2t")
+arrowScene = ExtResource("2_ufm6h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_rkyiv")
+hframes = 5
+
+[node name="radius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="radius"]
+shape = SubResource("CircleShape2D_qlrvm")
+
+[node name="shootTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="radiusSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.176471)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_vfq5r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_61wtq")
+}
+
+[node name="explode" type="Timer" parent="."]
+one_shot = true
+
+[node name="click" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="click"]
+position = Vector2(-2, -1)
+shape = SubResource("RectangleShape2D_xifnk")
+
+[node name="overlapcheck" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="overlapcheck"]
+position = Vector2(-2, -1)
+shape = SubResource("RectangleShape2D_jjk8x")
+
+[connection signal="area_entered" from="radius" to="." method="_on_radius_area_entered"]
+[connection signal="area_exited" from="radius" to="." method="_on_radius_area_exited"]
+[connection signal="timeout" from="shootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="explode" to="." method="_on_explode_timeout"]
+[connection signal="input_event" from="click" to="." method="_on_click_input_event"]

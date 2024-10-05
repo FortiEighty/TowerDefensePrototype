@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqxnvof4lxygi"]
+
+[ext_resource type="Texture2D" uid="uid://dbqfwg60r0yit" path="res://Towers/Sprites/arrowTower.png" id="1_fwg1e"]
+[ext_resource type="Script" path="res://Towers/Scripts/arrow_tower.gd" id="1_ji3kc"]
+[ext_resource type="PackedScene" uid="uid://cxmd61avmy8bp" path="res://Towers/Scenes/arrow.tscn" id="2_nhfgw"]
+[ext_resource type="AudioStream" uid="uid://dd3mpxibyvn65" path="res://Objects/Sounds/weapon-arrow-shot-01-153370.mp3" id="4_nmmvg"]
+[ext_resource type="Texture2D" uid="uid://c6kgaqsrg540i" path="res://blue-circle.svg" id="5_rfpyh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7krl5"]
+radius = 53.0094
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_55ofj"]
+radius = 29.6521
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_313yy"]
+size = Vector2(38.5, 53.5)
+
+[node name="ArrowTower" type="Node2D"]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(2, 2)
+script = ExtResource("1_ji3kc")
+arrowScene = ExtResource("2_nhfgw")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_fwg1e")
+
+[node name="radius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="radius"]
+modulate = Color(0.611765, 0.196078, 0.356863, 1)
+show_behind_parent = true
+shape = SubResource("CircleShape2D_7krl5")
+debug_color = Color(0, 0, 0, 0.419608)
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_nmmvg")
+
+[node name="radiusSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.176471)
+position = Vector2(-0.75, 0.999999)
+scale = Vector2(0.181, 0.18)
+texture = ExtResource("5_rfpyh")
+
+[node name="ClickEvent" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickEvent"]
+shape = SubResource("CircleShape2D_55ofj")
+
+[node name="buildoverlap" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="buildoverlap"]
+position = Vector2(-2.25, -1.25)
+shape = SubResource("RectangleShape2D_313yy")
+
+[connection signal="area_entered" from="radius" to="." method="_on_radius_area_entered"]
+[connection signal="area_exited" from="radius" to="." method="_on_radius_area_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="input_event" from="ClickEvent" to="." method="_on_click_event_input_event"]

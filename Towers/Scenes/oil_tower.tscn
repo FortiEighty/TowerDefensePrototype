@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://cf4hjeoc1j68w"]
+
+[ext_resource type="Texture2D" uid="uid://da8ogmtnicnr" path="res://Towers/Sprites/oilTower.png" id="1_7c02y"]
+[ext_resource type="Script" path="res://Towers/Scripts/oil_tower.gd" id="1_hy2nb"]
+[ext_resource type="PackedScene" uid="uid://dca4ljq2ixjib" path="res://Towers/Scenes/oil_bullet.tscn" id="2_h6cq3"]
+[ext_resource type="Texture2D" uid="uid://c6kgaqsrg540i" path="res://blue-circle.svg" id="4_ule3r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2argi"]
+radius = 49.4975
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqdk5"]
+radius = 37.4733
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7ls7"]
+size = Vector2(39.5, 61.5)
+
+[node name="oil_Tower" type="Node2D"]
+z_index = 2
+texture_filter = 1
+scale = Vector2(2, 2)
+script = ExtResource("1_hy2nb")
+arrowScene = ExtResource("2_h6cq3")
+
+[node name="mainSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_7c02y")
+
+[node name="radius" type="Area2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="radius"]
+shape = SubResource("CircleShape2D_2argi")
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="radiusSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.192157)
+texture_filter = 1
+position = Vector2(0.25, 1.69873e-06)
+texture = ExtResource("4_ule3r")
+
+[node name="clickarea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="clickarea"]
+shape = SubResource("CircleShape2D_xqdk5")
+
+[node name="overlaparea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="overlaparea"]
+position = Vector2(-1.25, -1.25)
+shape = SubResource("RectangleShape2D_s7ls7")
+
+[connection signal="area_entered" from="radius" to="." method="_on_radius_area_entered"]
+[connection signal="area_exited" from="radius" to="." method="_on_radius_area_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="input_event" from="clickarea" to="." method="_on_clickarea_input_event"]
